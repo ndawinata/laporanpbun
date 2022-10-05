@@ -1,0 +1,194 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Monitoring Shift | Stamet Pangkalan Bun</title>
+{% endblock %}
+
+{% block content %}
+<!-- <h1>coba web</h1> -->
+<!-- <div id="tester" style="width:600px;height:250px;"></div> -->
+<!-- Content Header (Page header) -->
+<div class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-6">
+				<h1 class="m-0">Dashboard</h1>
+			</div><!-- /.col -->
+			<div class="col-sm-6">
+				<ol class="breadcrumb float-sm-right">
+					<li class="breadcrumb-item"><a href="#">Home</a></li>
+					<li class="breadcrumb-item active">Dashboard</li>
+				</ol>
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+	<div class="container-fluid">
+		<!-- input Shift gempa -->
+		<div id="panelinput" class="row">
+			<div class="col-12 col-sm-12 col-md-12">
+				<div class="card card-danger">
+					<div class="card-header">
+						<h3 class="card-title">Laporan Shift</h3>
+						<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse">
+							<i class="fas fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-tool" data-card-widget="remove">
+							<i class="fas fa-times"></i>
+						</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label for="inputDate">Tanggal</label>
+									<div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+										<input id="inputDate" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+										<div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+											<div class="input-group-text"><i class="fa fa-calendar"></i></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="shift">Shift Dinas</label>
+									<select id="shift" class="form-control" placeholder="Choose..." onchange="changeShift()">
+										<option>Choose...</option>
+										{%for i in data['shift'] %}
+											<option>{{ i }}</option>
+										{%endfor%}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label for="job">Job Desk</label>
+									<select id="job" class="form-control" placeholder="Choose...">
+										<option>Choose...</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="petugas">Nama Petugas</label>
+									<select id="petugas" class="form-control" placeholder="Choose...">
+										<option>Choose...</option>
+										{%for i in data['pegawai'] %}
+											<option>{{ i }}</option>
+										{%endfor%}
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="d-flex justify-content-center mt-2">
+							<button type="submit" class="btn btn-primary" onclick="submitData()">Submit</button>
+						</div>
+					</div>
+					<!-- /.card-body -->
+				</div>
+			</div>
+		</div>
+
+		<!-- Monitoring Shift -->
+		<div id="panelinput" class="row">
+			<div class="col-12 col-sm-12 col-md-12">
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">Monitoring Shift</h3>
+						<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse">
+							<i class="fas fa-minus"></i>
+						</button>
+						<button type="button" class="btn btn-tool" data-card-widget="remove">
+							<i class="fas fa-times"></i>
+						</button>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12">
+								<table id="table_id" class="display">
+									<thead>
+										<tr>
+											<th>Tanggal</th>
+											<th>Nama Petugas</th>
+											<th>Shift Dinas</th>
+											<th>Job Desk</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+						
+					</div>
+					<!-- /.card-body -->
+				</div>
+			</div>
+		</div>
+		
+	</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+
+{% endblock %}
+
+{% block blokScript %}
+<!-- Select2 -->
+<script src="static/plugins/select2/js/select2.full.min.js"></script>
+<script>
+	$(function () {
+		$('#datetimepicker1').datetimepicker();
+	});
+
+
+	function submitData(){
+		axios.post("/laporan",{
+			"tgl":moment($("#inputDate").val()).format("YYYY-MM-DD HH:mm:ss"),
+			"shift":$("#shift").val(),
+			"job":$("#job").val(),
+			"petugas":$("#petugas").val(),
+		}).then((c)=>{
+			alert("Data Telah tersimpan, Muat Ulang Halaman Anda !")
+		})
+	}
+
+	function changeShift(){
+		var jobPagi = JSON.parse("{{ data['pagi'] | safe }}".replace(/'/g, '"'))
+		var jobSiang = JSON.parse("{{ data['siang'] | safe }}".replace(/'/g, '"'))
+		var jobMalam = JSON.parse("{{ data['malam'] | safe}}".replace(/'/g, '"'))
+
+		var shift = $("#shift").val()
+		$("#job").find('option').remove().end()
+
+		if(shift == 'pagi'){
+			jobPagi.map((c)=>{
+				$("#job").append(new Option(c));
+			})
+		}else if(shift == 'siang'){
+			jobSiang.map((c)=>{
+				$("#job").append(new Option(c));
+			})
+		}else{
+			jobMalam.map((c)=>{
+				$("#job").append(new Option(c));
+			})
+		}
+
+	}
+
+	$(document).ready( function () {
+		var laporan = JSON.parse("{{ data['laporan'] | safe}}".replace(/'/g, '"'))
+		$('#table_id').DataTable({data: laporan});
+	} );
+</script>
+{% endblock %}

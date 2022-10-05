@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" href="https://bmkg.go.id/asset/img/favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block title %}{% endblock %}
+        {% block headScript %}{% endblock %}
+        
+        <!-- daterange picker -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='plugins/daterangepicker/daterangepicker.css') }}">
+        <!-- Tempusdominus Bootstrap 4 -->
+        <link rel="stylesheet" href="static/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+        <!-- Select2 -->
+        <link rel="stylesheet" href="static/plugins/select2/css/select2.min.css">
+        <link rel="stylesheet" href="static/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+        <!-- Google Font: Source Sans Pro -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='plugins/fontawesome-free-6.1.1-web/css/all.min.css') }}">
+        <!-- overlayScrollbars -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='dist/css/adminlte.min.css') }}">
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/js/tempusdominus-bootstrap-4.min.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/css/tempusdominus-bootstrap-4.min.css" crossorigin="anonymous" /> -->
+    </head>
+    <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+        <div class="wrapper">
+            {% include 'preloader.html' %}
+            {% include 'navbar.html' %}
+            {% include 'sidebar.html' %}
+            <div class="content-wrapper">
+                {% block content %}{% endblock %}
+                {% include 'footer.html' %}
+            </div>
+            <!-- {% include 'preloader.html' %} -->
+        </div>
+
+        
+        <!-- REQUIRED SCRIPTS -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <!-- jQuery -->
+        <script src="{{ url_for('static', filename='plugins/jquery/jquery.min.js') }}"></script>
+        <!-- Bootstrap -->
+        <script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <!-- InputMask -->
+        <script src="{{ url_for('static', filename='plugins/moment/moment.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+        <!-- date-range-picker -->
+        <script src="{{ url_for('static', filename='plugins/daterangepicker/daterangepicker.js') }}"></script>
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="{{ url_for('static', filename='plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+        <!-- overlayScrollbars -->
+        <script src="{{ url_for('static', filename='plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+        <!-- AdminLTE App -->
+        <script src="{{ url_for('static', filename='dist/js/adminlte.js') }}"></script>
+
+        <!-- PAGE PLUGINS -->
+        <!-- jQuery Mapael -->
+        <script src="{{ url_for('static', filename='plugins/jquery-mousewheel/jquery.mousewheel.js') }}"></script>
+        <script src="{{ url_for('static', filename='plugins/raphael/raphael.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='plugins/jquery-mapael/jquery.mapael.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='plugins/jquery-mapael/maps/usa_states.min.js') }}"></script>
+        <!-- ChartJS -->
+        <script src="{{ url_for('static', filename='plugins/chart.js/Chart.min.js') }}"></script>
+        <!-- <script src="{{ url_for('static', filename='dist/js/pages/dashboard2.js') }}"></script>
+        <script src="{{ url_for('static', filename='dist/js/demo.js') }}"></script> -->
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+
+        {% block blokScript %}{% endblock %}
+    </body>
+</html>

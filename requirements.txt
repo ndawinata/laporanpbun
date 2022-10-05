@@ -1,0 +1,9 @@
+DateTime
+pandas
+numpy
+matplotlib
+docxtpl
+Flask
+packaging
+sqlalchemy
+pymysql
