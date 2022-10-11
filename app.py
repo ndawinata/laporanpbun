@@ -32,7 +32,7 @@ def dashboard():
     qshift = 'SELECT * FROM shift'
     shift = pd.read_sql(qshift, con=engine)
     
-    qData = 'SELECT tgl, petugas, shift, jobdesk FROM laporan LIMIT 15'
+    qData = 'SELECT tgl, petugas, shift, jobdesk FROM laporan ORDER BY tgl DESC LIMIT 15'
     laporan = pd.read_sql(qData, con=engine)
     laporan['tanggal'] = laporan['tgl'].dt.strftime('%d-%m-%Y %H:%M:%S')
     lapor = laporan[['tanggal','petugas','shift','jobdesk']].sort_values(by=['tanggal'],ascending=False)

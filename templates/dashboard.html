@@ -158,7 +158,9 @@
 			"job":$("#job").val(),
 			"petugas":$("#petugas").val(),
 		}).then((c)=>{
-			alert("Data Telah tersimpan, Muat Ulang Halaman Anda !")
+			confirm("Data Telah tersimpan, Muat Ulang Halaman Anda !") ? window.location.reload() : null;
+			//window.location.reload();
+			//alert("Data Telah tersimpan, Muat Ulang Halaman Anda !")
 		})
 	}
 
